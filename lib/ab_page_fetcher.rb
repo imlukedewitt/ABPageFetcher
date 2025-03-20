@@ -2,9 +2,30 @@
 
 require 'json'
 require 'typhoeus'
+require 'logger'
 
 # Fetches paginated data from Maxio Advanced Billing
 module ABPageFetcher
+  class << self
+    attr_writer :logger
+    
+    # Returns the logger instance
+    # @return [Logger] The configured logger
+    def logger
+      @logger ||= Logger.new($stdout).tap do |log|
+        log.level = Logger::INFO
+      end
+    end
+    
+    # Configure the logger
+    # @param logger [Logger] Custom logger instance
+    # @return [Logger] The configured logger
+    def configure_logger(logger = nil)
+      self.logger = logger if logger
+      self.logger
+    end
+  end
+
   # Fetches and combines paginated data from an API endpoint
   #
   # @param endpoint [String] The API endpoint to fetch from
@@ -102,11 +123,11 @@ module ABPageFetcher
     end
 
     if response.timed_out?
-      puts 'Request timed out'
+      ABPageFetcher.logger.error('Request timed out')
     elsif response.code.zero?
-      puts "No HTTP response: #{response.return_code} - #{response.return_message}"
+      ABPageFetcher.logger.error("No HTTP response: #{response.return_code} - #{response.return_message}")
     else
-      puts "HTTP request failed: #{response.code}"
+      ABPageFetcher.logger.error("HTTP request failed: #{response.code}")
     end
     false
   end
