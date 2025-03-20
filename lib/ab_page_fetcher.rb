@@ -14,7 +14,7 @@ module ABPageFetcher
   # @param params [Hash] Additional query parameters
   # @param data_extractor [Proc] Lambda to extract data from response (default: returns full JSON)
   # @return [Array] Combined results from all pages
-  def fetch(
+  def fetch_paginated_data(
     endpoint,
     credentials,
     per_page: 200,
