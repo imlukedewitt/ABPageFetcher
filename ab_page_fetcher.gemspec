@@ -5,5 +5,4 @@ Gem::Specification.new do |s|
   s.authors     = ["Luke DeWitt"]
   s.files       = ["lib/ab_page_fetcher.rb"]
   s.add_runtime_dependency "typhoeus"
-  s.add_runtime_dependency "dotenv"
 end
