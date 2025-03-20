@@ -89,8 +89,8 @@ module ABPageFetcher
   def process_batch(endpoint:, credentials:, page:, hydra:, all_data:, params:, per_page:, batch_size:, data_extractor:)
     stop = false
 
+    ABPageFetcher.logger.info("Processing pages #{page} - #{page + batch_size - 1}")
     batch_size.times do |i|
-      puts "Processing page #{page + i} - #{page + batch_size - 1}"
       request = create_paginated_request(
         endpoint: endpoint,
         page: page + i,
