@@ -5,6 +5,15 @@ require 'typhoeus'
 
 # Fetches paginated data from Maxio Advanced Billing
 module ABPageFetcher
+  # Fetches and combines paginated data from an API endpoint
+  #
+  # @param endpoint [String] The API endpoint to fetch from
+  # @param credentials [Hash] API credentials containing :username and :password
+  # @param per_page [Integer] Number of items per page (default: 200)
+  # @param batch_size [Integer] Number of concurrent requests (default: 20)
+  # @param params [Hash] Additional query parameters
+  # @param data_extractor [Proc] Lambda to extract data from response (default: returns full JSON)
+  # @return [Array] Combined results from all pages
   def fetch(
     endpoint,
     credentials,
