@@ -90,6 +90,7 @@ module ABPageFetcher
     stop = false
 
     batch_size.times do |i|
+      puts "Processing page #{page + i} - #{page + batch_size - 1}"
       request = create_paginated_request(
         endpoint: endpoint,
         page: page + i,
